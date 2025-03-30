@@ -1,4 +1,4 @@
-# Doctor-Patient Consultation App
+# Transcription and SOAP Generations using LLMs for medical consultations
 
 A web application that facilitates virtual consultations between doctors and patients, featuring post call transcription and SOAP note generation using LLMs
 
