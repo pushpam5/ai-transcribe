@@ -59,7 +59,13 @@ The server listens for incoming webhook requests containing a URL to an audio re
 -   Utilizes OpenAI's function calling feature (`tools`) to request the SOAP note in a specific JSON structure, including Subjective, Objective, Assessment, and Plan sections, each with content and references to the transcript.
 
 ### API Endpoints
+
 - POST `/webhook/recordings` - Store and process recording to generate transcription and SOAP summary
 - POST `/webhook/session-start` - Store session details in the database
 - GET `/sessions` - Get all the sessions
 - Get `/sessions/:sessionId` - Get details for given sessionId 
+
+### Scope of Improvement
+
+- Run a separate job for transcription and SOAP report to handle the cases where because of some failure they were not generated (Use kafka topics to run these jobs)
+- Implement a real-time model to generate paragraph-structured transcriptions as the meeting progresses.
