@@ -12,7 +12,7 @@ export async function generateSOAPSummary(transcription: string): Promise<string
       messages: [
         {
           role: 'system',
-          content: `You are a medical scribe assistant. Create a SOAP note from the following medical encounter transcription. 
+          content: `You are an expert medical scribe assistant. Create a SOAP note from the following medical encounter transcription. 
           Format your response with clear Subjective, Objective, Assessment, and Plan sections.`
         },
         {

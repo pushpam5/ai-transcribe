@@ -1,5 +1,6 @@
 import React from 'react';
 import { HMSPrebuilt } from '@100mslive/roomkit-react';
+import { RECORDING_URL, ROOM_CODE } from '../../lib/constants';
 
 interface CallViewProps {
   patientName: string;
@@ -15,8 +16,8 @@ const CallView: React.FC<CallViewProps> = ({ patientName, onEndCall }) => {
     <div style={{ height: "100vh" }}>
       <HMSPrebuilt
         options={options} 
-        roomCode="hdf-udxp-bxn" 
-        onLeave={() => onEndCall(process.env.REACT_APP_RECORDING_URL || '')} 
+        roomCode={ROOM_CODE} 
+        onLeave={() => onEndCall(RECORDING_URL)} 
       />
     </div>
   );
