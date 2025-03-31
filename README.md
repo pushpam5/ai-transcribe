@@ -17,7 +17,6 @@ A web application that facilitates virtual consultations between doctors and pat
 
 - Backend:
   - Node.js
-  - TypeScript
   - Deepgram and OpenAI for transcription and SOAP note generation respectively
 
 ## Setup
