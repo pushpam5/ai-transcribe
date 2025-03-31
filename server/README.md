@@ -61,3 +61,10 @@ The server listens for incoming webhook requests containing a URL to an audio re
 ### API Endpoints
 - POST `/webhook/recordings` - Process recording to generate transcription and SOAP summary
 - GET `/api` - Health check endpoint to verify server status
+
+### Scope of Improvement
+
+- Add support to get recordings directly from webhook
+- Add support to store recording url, transcription and SOAP report in DB once recording URL is received on webhook
+- Run a separate job for transcription and SOAP report to handle the cases where because of some failure they were not generated (Use kafka topics to run these jobs)
+- Implement a real-time model to generate paragraph-structured transcriptions as the meeting progresses.
