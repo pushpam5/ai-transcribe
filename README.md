@@ -28,7 +28,7 @@ A web application that facilitates virtual consultations between doctors and pat
   cd ai-transcribe
 ```
 
-2. Set the environment variables in `client/src/lib` and copy `.env.example` keys to `.env`
+2. Set the environment variables in `client/src/lib/constants` and copy `.env.example` keys to `.env`
 
 3. Execute run script:
 ```bash
