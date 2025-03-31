@@ -29,6 +29,8 @@ const DoctorPatientCall: React.FC<DoctorPatientCallProps> = ({
     setIsCallActive(false);
     setIsLoading(true);
     
+    // This will not be required once we have the webhook working
+    // which is after deployment of the backend
     try {
       const response = await fetch(`${API_URL}/webhook/recordings`, {
         method: 'POST',

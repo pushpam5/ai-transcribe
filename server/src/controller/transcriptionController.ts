@@ -16,13 +16,11 @@ export async function transcribeAudio(recordingUrl: string): Promise<string> {
 
     if (error) throw error;
     
-    // Extract paragraphs from the response if available
     const paragraphs = result?.results?.channels[0]?.alternatives[0]?.paragraphs?.transcript;
     if(paragraphs){
         return paragraphs;
     }
     
-    // Fallback to the transcript if paragraphs aren't available
     return result?.results?.channels[0]?.alternatives[0]?.transcript || '';
   } catch (error) {
     console.error('Transcription error:', error);

@@ -9,12 +9,11 @@ interface ResultsViewProps {
 }
 
 const ResultsView: React.FC<ResultsViewProps> = ({ results, onNewCall }) => {
-  // Parse SOAP note if it's in JSON format
   let parsedSoap = results.soapSummary;
   try {
     parsedSoap = JSON.parse(results.soapSummary);
   } catch (e) {
-    console.log('SOAP note is not in JSON format, displaying as is');
+    console.log('SOAP note is not in JSON format, displaying the raw text');
   }
   
   return (
@@ -25,10 +24,10 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onNewCall }) => {
         <h3>Transcription</h3>
         <div className="transcription-box">
           {results.transcription.split('\n').map((line, index) => (
-            <React.Fragment key={index}>
+            <div key={index}>
               {line}
               {index < results.transcription.split('\n').length - 1 && <br />}
-            </React.Fragment>
+            </div>
           ))}
         </div>
       </div>
