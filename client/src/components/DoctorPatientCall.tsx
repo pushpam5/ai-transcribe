@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/DoctorPatientCall.css';
-import { API_URL } from '../lib/constants';
 import PreCallView from './call/PreCallView';
 import CallView from './call/CallView';
-import LoadingView from './call/LoadingView';
 import ResultsView from './call/ResultsView';
+import SessionList from './SessionList';
 
 interface DoctorPatientCallProps {
   patientName?: string;
@@ -15,11 +14,11 @@ const DoctorPatientCall: React.FC<DoctorPatientCallProps> = ({
 }) => {
   const [isCallActive, setIsCallActive] = useState(false);
   const [patientName, setPatientName] = useState(initialPatientName);
-  const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<{
     transcription: string;
     soapSummary: string;
   } | null>(null);
+  const [viewSessions, setViewSessions] = useState(false);
 
   const handleStartCall = () => {
     setIsCallActive(true);
@@ -27,29 +26,6 @@ const DoctorPatientCall: React.FC<DoctorPatientCallProps> = ({
 
   const handleEndCall = async (recordingUrl: string) => {
     setIsCallActive(false);
-    setIsLoading(true);
-    
-    try {
-      const response = await fetch(`${API_URL}/webhook/recordings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ recordingUrl }),
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        setResults(data.data);
-      } else {
-        console.error('Error processing recording:', data.error);
-      }
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const resetAppointment = () => {
@@ -58,6 +34,10 @@ const DoctorPatientCall: React.FC<DoctorPatientCallProps> = ({
   };
   
   const renderContent = () => {
+    if (viewSessions) {
+      return <SessionList />;
+    }
+    
     if (isCallActive) {
       return (
         <CallView 
@@ -65,10 +45,6 @@ const DoctorPatientCall: React.FC<DoctorPatientCallProps> = ({
           onEndCall={handleEndCall} 
         />
       );
-    }
-    
-    if (isLoading) {
-      return <LoadingView />;
     }
     
     if (results) {
@@ -93,6 +69,14 @@ const DoctorPatientCall: React.FC<DoctorPatientCallProps> = ({
     <div className="doctor-patient-call">
       <div className="call-header">
         <h1>Consultation</h1>
+        <div className="header-actions">
+          <button 
+            className="view-sessions-button"
+            onClick={() => setViewSessions(!viewSessions)}
+          >
+            {viewSessions ? 'New Consultation' : 'View Past Sessions'}
+          </button>
+        </div>
       </div>
       
       <div className="call-status">
