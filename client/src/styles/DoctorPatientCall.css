@@ -18,6 +18,22 @@
   margin-bottom: 0.5rem;
 }
 
+.view-sessions-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.view-sessions-button:hover {
+  background-color: #2980b9;
+}
+
 .pre-call {
   padding: 3rem 2rem;
   text-align: center;
