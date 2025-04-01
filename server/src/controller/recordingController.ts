@@ -8,22 +8,26 @@ export async function processRecording(recordingUrl: string, sessionId: string):
 }> {
   try {
     const transcription = await transcribeAudio(recordingUrl);
+    if(!transcription){
+      throw new Error('Failed to transcribe audio');
+    }
 
     const callDetails = await CallDetails.findOne({sessionId: sessionId});
     if(callDetails){
-      callDetails.transcription = transcription;
+      callDetails.transcription = transcription || '';
       await callDetails.save();
     }
 
     const soapSummary = await generateSOAPSummary(transcription);
-    if(callDetails){
-      callDetails.soapNote = soapSummary;
-      await callDetails.save();
+    if(soapSummary){
+      if(callDetails){
+        callDetails.soapNote = soapSummary;
+        await callDetails.save();
+      }
     }
-    
     return {
       transcription,
-      soapSummary,
+      soapSummary: soapSummary || '',
     };
   } catch (error) {
     console.error('Error in processRecording:', error);
